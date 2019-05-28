@@ -1,0 +1,105 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Portal Web</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/content/css/datepicker/bootstrap-datepicker3.standalone.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="~/content/js/datepicker/bootstrap-datepicker.js"></script>
+
+
+    <link rel="stylesheet" href="~/content/css/div_login.css">
+    <style type="text/css">
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        /* Add a gray background color and some padding to the footer */
+        footer {
+            background-color: #f2f2f2;
+            padding: 25px;
+        }
+
+        .carousel-inner img {
+            width: 100%; /* Set width to 100% */
+            margin: auto;
+            min-height: 200px;
+        }
+
+        /* Hide the carousel text when the screen is less than 600 pixels wide */
+        @@media (max-width: 600px) {
+            .carousel-caption {
+                display: none;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="cabecalho">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Portal Web</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active">@Html.ActionLink("Início", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Lista Produtos", "Index", "Produtos")</li>
+                        <li>@Html.ActionLink("Produto To Linq", "ProdutoToLinq", "Produtos")</li>
+                        <li>@Html.ActionLink("Pesquisa de produtos", "grid", "Produtos")</li>
+                        <li>@Html.ActionLink("Exemplos de graficos", "Index", "Grafic")</li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li>
+                            @if (PortalTeste.Controllers.LoginController.usuario().apelido_cli != null)
+                            {
+                                //<a href="#" style="color:#ffffff;">
+                                <div style="color:#ffffff; padding-top:15px;padding-bottom:15px; margin-right:15px; margin-left:15px;"> 
+                                     Olá, @PortalTeste.Controllers.LoginController.usuario().apelido_cli &nbsp; &nbsp; @Html.ActionLink("Sair","Sair","Login",null,new
+                                                                                                   {@style= "padding:5px;background:#f5f5f5;color:#000000;border-radius:5px;text-decoration:none;" })
+                                </div>
+                                    //</a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Content("/login/Index")"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                            }
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="conteudo">
+        @RenderBody()
+    </div>
+
+    <div class="rodape">
+        <footer class="container-fluid text-center">
+            <p>Footer Text</p>
+        </footer>
+    </div>
+</body>
+</html>

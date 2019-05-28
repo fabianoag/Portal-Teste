@@ -1,0 +1,13 @@
+﻿
+@media only screen and (min-width: 600px) {
+    .div_login {
+        margin-left:25%;
+        margin-right:25%;
+        margin-top:200px;
+        margin-bottom:100px;
+        width:50%;
+    }
+    .itens_form{
+        width:50%;
+    }
+}

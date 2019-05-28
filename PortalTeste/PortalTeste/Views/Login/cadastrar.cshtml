@@ -1,0 +1,152 @@
+﻿
+@{
+    ViewBag.Title = "cadastrar";
+}
+
+<style>
+    .text-red{
+        color:#ff0000;
+        display:block;
+    }
+</style>
+
+
+<div class="div_login">
+    <h2>Formulário de cadastro</h2>
+
+    <form action="/login/Adiciona" method="post">
+        @Html.AntiForgeryToken()
+        <label>Nome:</label>
+        <input  type="text" name="Pessoa.nome_pessoa" class="form-control" value="@ViewBag.pessoa.nome_pessoa" placeholder="Digite o nome." />
+        @Html.ValidationMessage("Pessoa.nome_pessoa", new { @class = "text-red" })<br />
+
+        <div>
+            <label>Tipo de cliente:</label>
+
+            @for (int i = 0; i < 2; i++)
+            {
+
+                if (i == 0)
+                {
+                    if (@ViewBag.pessoa.sexo_pessoa == "m")
+                    {
+                        <input type="radio" name="Pessoa.sexo_pessoa" value="m" checked><label> Masculino &nbsp;&nbsp;</label>
+                    }
+                    else
+                    {
+                        <input type="radio" name="Pessoa.sexo_pessoa" value="m"><label> Masculino &nbsp;&nbsp;</label>
+                    }
+                }
+                if (i == 1)
+                {
+                    if (@ViewBag.pessoa.sexo_pessoa == "f")
+                    {
+                        <input type="radio" name="Pessoa.sexo_pessoa" value="f" checked><label> Feminino &nbsp;&nbsp;</label>
+                    }
+                    else
+                    {
+                        <input type="radio" name="Pessoa.sexo_pessoa" value="f"><label> Feminino &nbsp;&nbsp;</label>
+                    }
+                }
+
+            }
+        </div>@Html.ValidationMessage("Pessoa.sexo_pessoa", new { @class = "text-red" })<br />
+
+        <label>Tipo:</label>
+  
+        <select name="Pessoa.id_tipo_pessoa" class="form-control itens_form">
+            @foreach (var tipos in ViewBag.tipo_Pessoas)
+            {
+                <option value="@tipos.id_tipo_pessoa">@tipos.nm_tipo_pessoa</option>
+            }
+        </select>@Html.ValidationMessage("Pessoa.id_tipo_pessoa", new { @class = "text-red" })<br />
+
+        <label>Data Nascimento:</label>
+
+        <div class="input-group date">
+            @{ 
+                String data = "";
+                var dt = @ViewBag.pessoa.data_nasc_pessoa;
+                data = dt.ToString();               
+            }
+            @if(data != "01/01/0001 00:00:00")
+            {
+                data = String.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(data));
+            }
+            else
+            {
+                data = "";
+            }
+        @* if(data != "01/01/0001 00:00:00") *@
+            <input type="text" name="Pessoa.data_nasc_pessoa" class="form-control" value="@data" style="width:80%;" placeholder="Insira a data." /><span class="input-group-addon" style="float:left; height:34px; width:40px;"><i class="glyphicon glyphicon-th"></i></span>
+        </div>@Html.ValidationMessage("Pessoa.data_nasc_pessoa", new { @class = "text-red" })
+
+        <br />
+
+
+        @* A data de cadastro fica no back-end *@
+
+        @* Cliente pessoa fisica *@
+        <label>login email:</label>
+        <input type="text" name="Cli.login_email_cli" class="form-control itens_form" value="@ViewBag.cliente.login_email_cli" placeholder="Digite um email." />
+        @Html.ValidationMessage("Cli.login_email_cli", new { @class = "text-red" })<br />
+        <label>Senha:</label>
+        <input type="password" id="ipt_senha" name="Cli.senha_cli" class="form-control itens_form" value="@ViewBag.cliente.senha_cli" placeholder="Digite uma senha." />
+        @Html.ValidationMessage("Cli.senha_cli", new { @class = "text-red" })<br />
+        <label>Confirmar senha:</label>
+        <input type="password" id="ipt_conf_senha_cli" name="conf_senha" class="form-control itens_form" value="" placeholder="Redigite a senha." />
+        <span id="lbl_conf_senha" style="color:#ff0000"></span>
+        @Html.ValidationMessage("conf_senha", new { @class = "text-red" })<br />
+
+        <div>
+            <label>Tipo de cliente:</label>
+            @for (int i = 0; i < 2; i++)
+            {
+                if (i == 0)
+                {
+                    if (@ViewBag.cliente.fisico_cli == true)
+                    {
+                        <input type="radio" name="tipo_cliente" value="Fisico" checked><label> Fisico &nbsp;&nbsp;</label>
+                    }
+                    else
+                    {
+                        <input type="radio" name="tipo_cliente" value="Fisico"><label> Fisico &nbsp;&nbsp;</label>
+                    }
+                }
+                if (i == 1)
+                {
+                    if (@ViewBag.cliente.juridico_cli == true)
+                    {
+                        <input type="radio" name="tipo_cliente" value="Juridico" checked><label> Juridico &nbsp;&nbsp;</label>
+                    }
+                    else
+                    {
+                        <input type="radio" name="tipo_cliente" value="Juridico"><label> Juridico &nbsp;&nbsp;</label>
+                    }
+                }
+            }
+        </div>
+        @Html.ValidationMessage("select.Tipo_cliente", new { @class = "text-red" })<br>
+        <label>Apelido:</label>
+        <input type="text" name="Cli.apelido_cli" class="form-control itens_form" value="@ViewBag.cliente.apelido_cli" placeholder="Digite um apelido." />
+        @Html.ValidationMessage("Cli.apelido_cli", new { @class = "text-red" })<br />
+        @* Cliente pessoa juridica *@
+
+        <input id="ipt_submit" type="submit" value="Cadastrar usuário" />
+    </form>
+</div>
+<script type="text/javascript">
+    setTimeout(dataNull,100);
+    function dataNull() {
+        var input = $("input[name='Pessoa.data_nasc_pessoa']");
+        var data_null = input.val();
+        if (data_null == "01/01/0001") {
+            input.val("");
+        }
+    }
+</script>
+<script src="~/content/js/datepicker/bootstrap-datepicker.pt-BR.min.js"></script>
+<script src="~/content/js/datepicker/datepicker-config.js"></script>
+<script src="~/content/js/lbl_conf_senha.js"></script>
+
+

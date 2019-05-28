@@ -1,0 +1,48 @@
+﻿@model IList<PortalTeste.Models.Produto>
+
+<br />
+<div style="text-align:center; background-color:#f1efef;"> <h1><b>LISTA DE PRODUTOS</b></h1></div>
+<br />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>id_produto</th>
+            <th>Titulo_produto</th>
+            <th>id_subcategoria2</th>
+            <th>id_categoria</th>
+            <th>id_subcategoria</th>
+            <th>desconto</th>
+            <th>id_marca</th>
+            <th>cod_faixa_etaria</th>
+            <th>preco</th>
+            <th>cod_de_barra</th>
+            <th>cod_visualizacao_parc</th>
+            <th>habilitado</th>
+            <th>data_insercao</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var produtos in Model)
+        {
+            <tr>
+                <td>@produtos.id_produto</td>
+                <td>@produtos.Titulo_produto</td>
+                <td>@produtos.sub_categoria2.nm_subcategoria2</td>
+                <td>@produtos.categoria.nm_categoria</td>
+                <td>@produtos.sub_categoria.nm_subcategoria</td>
+                <td>@produtos.desconto</td>
+                <td>@produtos.marca.nm_marca</td>
+                <td>@produtos.faixa_etaria.nm_faixa_etaria</td>
+                <td>@produtos.preco</td>
+                <td>@produtos.cod_de_barra</td>
+                <td>@produtos.cod_visualizacao_parc</td>
+                <td>@produtos.habilitado</td>
+                <td>@produtos.data_insercao</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<br />

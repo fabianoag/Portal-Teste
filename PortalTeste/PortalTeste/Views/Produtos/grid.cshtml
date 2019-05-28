@@ -1,0 +1,301 @@
+﻿@*@model  IList<PortalTeste.Models.FiltraDados.FiltroOrder>*@
+@model  PagedList.IPagedList<PortalTeste.Models.FiltraDados.Lista_Produtos2>
+@using PagedList.Mvc;
+@using PortalTeste.Controllers;
+
+<div style="text-align:center; background-color:#f1efef;"> <h1><b>PESQUISA DE PRODUTOS</b></h1></div>
+
+<br />
+<form action="/Produtos/grid" method="get">
+    <div style="width:1000px; margin-left:25%; margin-right:25%;">
+        <input type="text" name="busca" value="@ViewBag.pesq.busca" placeholder="Digite aqui sua pesquisa!" class="form-control" style="width:800px;display:inline;"/>
+        <input type="submit" value="Pesquisar" class="btn btn-primary" />
+    </div><br /><br />
+
+    <div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-2 sidenav">
+
+                @* FILTRO DE CATEGORIAS *@
+                <div>
+                    <label style="background:#42c3fc; color:#ffffff;width:100%;height:21px;">Categórias</label>
+                    @*<h1>@ViewBag.foCount</h1>*@
+                    <ul style="text-align:left; list-style-type:none;">
+                        @* ViewBag.filtroOrder *@
+
+                        @{
+                        string onclick = "";
+                        if (@ViewBag.foCount == 1)
+                        {
+                            onclick = "javascript:return false;";
+                        }
+                        }
+                        @if (ViewBag.filtroOrder != null)
+                    {
+                        foreach (var filtroOrder in ViewBag.filtroOrder)
+                        {
+                        @*@filtroCategoria.categorias.id_categoria*@
+                        @*@filtroCategoria.categorias.mn_categoria*@
+                        @*@filtroCategoria.total*@
+                    int valor = (int)filtroOrder.or;
+
+                    string texto = "";
+
+                    if (filtroOrder.categorias != null)
+                    {
+                        texto = (String)filtroOrder.categorias.nm_categoria + "(" + Convert.ToString(filtroOrder.total) + ")";
+                    }
+                    else if (filtroOrder.Subcategorias != null)
+                    {
+                        texto = (String)filtroOrder.Subcategorias.nm_subcategoria + "(" + Convert.ToString(filtroOrder.total) + ")";
+                    }
+                    else if (filtroOrder.Subcategorias2 != null)
+                    {
+                        texto = (String)filtroOrder.Subcategorias2.nm_subcategoria2 + "(" + Convert.ToString(filtroOrder.total) + ")";
+                    }
+
+                    switch (valor - 1)
+                    {
+                        case 1:
+                        <li>
+                            @Html.ActionLink(texto, "grid", new
+                           { id = filtroOrder.Subcategorias.id_subcategoria, filtroOrder.or }, new { onclick })
+                        </li>
+                                    break;
+                                case 2:
+                        <li>
+                            @Html.ActionLink(texto, "grid", new
+                                   { id = filtroOrder.Subcategorias2.id_subcategoria2, filtroOrder.or }, new { onclick })
+                        </li>
+                                    break;
+                                default:
+                        <li>
+                            @Html.ActionLink(texto, "grid", new
+                                   { id = filtroOrder.categorias.id_categoria, filtroOrder.or })
+                        </li>
+                                    break;
+                            }
+
+                        }
+                    }
+                    </ul>
+                </div><br />
+
+
+                <input type="hidden" name="id" value="@ViewBag.pesq.id" />
+                <input type="hidden" name="or" value="@ViewBag.pesq.or" />
+
+                @* FILTRO DE DESCONTOS *@
+                <div>
+                    <label style="background:#42c3fc; color:#ffffff;width:100%;height:21px;">Descontos</label>
+                    <ul style="text-align:left; list-style-type:none;">
+                        @if (ViewBag.filtroDesconto != null)
+                        {
+                            foreach (var filtroDesconto in ViewBag.filtroDesconto)
+                            {
+                                    @*@filtroDesconto.pesq_filtro_desconto*@
+                                    @*@filtroDesconto.nm_filtro_desconto*@
+                                    @*@filtroDesconto.total*@
+                                    bool escreverLinhaFD = true;
+                                    if (ViewBag.VerificaFDesc != null)
+                                    {
+                                            @* VERIFICA O CONTEUDO COM CHECKED NO FILTRO DESCONTO *@
+                                            String dc = (String)ViewBag.VerificaFDesc;
+                                            String[] descSplit = dc.Split(',');
+                                            foreach (var verificarFD in descSplit)
+                                            {
+                                                if (escreverLinhaFD)
+                                                {
+                                                    if (verificarFD == @filtroDesconto.pesq_filtro_desconto)
+                                                    {
+                                                        <li>
+                                                            <input type="checkbox" id="a" value="@filtroDesconto.pesq_filtro_desconto" checked="checked" />
+                                                            <label> @filtroDesconto.nm_filtro_desconto@**@(@filtroDesconto.total)</label>
+                                                        </li>
+                                                        escreverLinhaFD = false;
+                                                     }
+
+                                                 }
+                                            }
+                                      }
+                                      if (escreverLinhaFD)
+                                      {
+                                                <li>
+                                                    <input type="checkbox" id="a" value="@filtroDesconto.pesq_filtro_desconto" />
+                                                    <label> @filtroDesconto.nm_filtro_desconto@**@(@filtroDesconto.total) </label>
+                                                </li>
+                                      }
+                              }
+
+                        }
+                    </ul>
+                    @{
+
+                    }
+                </div>
+
+                <br />
+
+                <script type="text/javascript">
+                    $(function () {
+                        // delete extra hidden fields created by checkboxes as the grid links mess this up by doubling the querystring parameters
+                        $("input[type='hidden'][name='chkbFiltroDesconto']").remove();
+                    });
+                </script>
+                @* FILTRO DE PREÇOS *@
+                <div>
+                    <label style="background:#42c3fc; color:#ffffff;width:100%;height:21px;">Preços</label>
+                    <ul style="text-align:left; list-style-type:none;">
+
+
+                        @if (ViewBag.filtroPrecoProduto != null)
+                        {
+                            foreach (var filtroPrecoProduto in ViewBag.filtroPrecoProduto)
+                            {
+                                bool escreverLinhaFPP = true;
+                                @* VERIFICA O CONTEUDO COM CHECKED NO FILTRO PRODUTO *@
+                                if (ViewBag.VerificaFPProduto != null)
+                                {
+
+                                    String prc = (String)ViewBag.VerificaFPProduto;
+                                    String[] precoSplit = prc.Split(',');
+                                    foreach (var verificarFPP in precoSplit)
+                                    {
+                                        if (escreverLinhaFPP)
+                                        {
+                                            if (verificarFPP == @filtroPrecoProduto.pesq_filtro_precoProduto)
+                                            {
+                                                @*@filtroPrecoProduto.pesq_filtro_precoProduto*@
+                                                @*@filtroPrecoProduto.nm_filtro_precoProduto*@
+                                                @*@filtroPrecoProduto.total*@
+                                                <li>
+                                                    @*@Html.CheckBox("chkbFiltroPrecoProduto", false, new { Value = @filtroPrecoProduto.pesq_filtro_precoProduto })*@
+                                                    <input type="checkbox" id="b" value="@filtroPrecoProduto.pesq_filtro_precoProduto" checked="checked" />
+                                                    <label>@filtroPrecoProduto.nm_filtro_precoProduto@**@(@filtroPrecoProduto.total) </label>
+                                                </li>
+                                                escreverLinhaFPP = false;
+                                            }
+                                        }
+                                    }
+                                 }
+                                if (escreverLinhaFPP)
+                                {
+                                    <li>
+                                        <input type="checkbox" id="b" value="@filtroPrecoProduto.pesq_filtro_precoProduto" />
+                                        <label>@filtroPrecoProduto.nm_filtro_precoProduto@**@(@filtroPrecoProduto.total) </label>
+                                    </li>
+                                }
+
+                            }
+                        }
+                    </ul>
+                </div><br />
+            </div>
+
+
+
+            @* LISTA DE TODOS OS PRODUTOS *@
+            <div class="col-sm-8 text-left">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Titulo_produto</th>
+                            <th>id_subcategoria2</th>
+                            <th>id_categoria</th>
+                            <th>id_subcategoria</th>
+                            <th>desconto</th>
+                            <th>id_marca</th>
+                            <th>precoTotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var produtos in Model)
+                            {
+                                <tr>
+                                    <td>@produtos.Titulo_produto</td>
+                                    <td>@produtos.nm_subcategoria2</td>
+                                    <td>@produtos.nm_categoria</td>
+                                    <td>@produtos.nm_subcategoria</td>
+                                    <td>@produtos.desconto</td>
+                                    <td>@produtos.nm_marca</td>
+                                    <td>@produtos.precoTotal</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                @{ 
+                    //if (ViewBag.VerificaFDesc != null)
+                    //{
+                    //    foreach (var ab in ViewBag.VerificaFDesc)
+                    //    {
+                    //        a += "&a=" + ab;
+                    //    }
+                    //}
+                }
+
+                @*@Html.PagedListPager(Model, page => Url.Action("grid", new { id = @ViewBag.pesq.id, busca = @ViewBag.pesq.busca, or = @ViewBag.pesq.or, page, pageSize = Model.PageSize }))*@ 
+                
+                @Html.PagedListPager(Model, page => Url.Action("grid", new { id = @ViewBag.pesq.id, busca = @ViewBag.pesq.busca, or = @ViewBag.pesq.or, desc = Request.QueryString["desc"], preco = Request.QueryString["preco"] ,page, pageSize = Model.PageSize }))
+
+
+                <b> De @Model.FirstItemOnPage á @Model.LastItemOnPage do total de @Model.TotalItemCount Produtos</b>
+
+                <br />
+                <br />
+
+            </div>
+
+            @*<div class="col-sm-2 sidenav">
+                    <div class="well">
+                        <p>ADS</p>
+                    </div>
+                    <div class="well">
+                        <p>ADS</p>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+    <input type="text" name="desc" style="width:800px;" />
+    <input type="text" name="preco" style="width:800px;" />
+</form>
+
+    <script language="javascript" type="text/javascript">
+
+        function executaCheckeds() {
+            @* ESTE CÁDIGO EXECUTA A FILTRAGEM DO DESCONTO *@
+            $('form input[name=desc]').val('');
+            var creDesc = "";
+            $('form ul li input[id=a]:checked').each(function (index, element) {
+                //alert('Index = '+index+'\n Elemento = '+ $(element).val());
+                if (index == 0) {
+                    creDesc = $(element).val();
+                    $('form input[name=desc]').val(creDesc);
+                }
+                else {
+                    creDesc = creDesc + ',' + $(element).val();
+                    $('form input[name=desc]').val(creDesc);
+                }
+            });
+
+            @* ESTE CODIGO EXECUTA A FILTRAGEM DO PRECO *@
+            $('input[name=preco]').val('');
+            var crePreco = "";
+            $('input[id=b]:checked').each(function (index, element) {
+                //alert('Index = '+index+'\n Elemento = '+ $(element).val());
+                if (index == 0) {
+                    crePreco = $(element).val();
+                    $('input[name=preco]').val(crePreco);
+                }
+                else {
+                    crePreco = crePreco + ',' + $(element).val();
+                    $('input[name=preco]').val(crePreco);
+                }
+            });            
+        };
+
+        $('form ul li #a').click(function () { executaCheckeds(); window.setInterval(this.form.submit(), 1000); });
+        $('form ul li #b').click(function () { executaCheckeds(); window.setInterval(this.form.submit(), 1000); });
+    </script>

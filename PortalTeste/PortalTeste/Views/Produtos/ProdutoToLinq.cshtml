@@ -1,0 +1,281 @@
+﻿@model IList < PortalTeste.Models.FiltraDados.FiltroOrder>
+
+
+<br />
+<div style="text-align:center; background-color:#f1efef;"> <h1><b>LISTA COM LINQ</b></h1></div>
+<br />
+
+<br />
+<div> <h3><b>LISTA PRODUTOS</b></h3></div>
+<br />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>id_produto</th>
+            <th>Titulo_produto</th>
+            <th>id_subcategoria2</th>
+            <th>id_categoria</th>
+            <th>id_subcategoria</th>
+            <th>desconto</th>
+            <th>id_marca</th>
+            <th>cod_faixa_etaria</th>
+            <th>preco</th>
+            <th>cod_de_barra</th>
+            <th>cod_visualizacao_parc</th>
+            <th>habilitado</th>
+            <th>data_insercao</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var produtos in ViewBag.produtos)
+        {
+            <tr>
+                <td>@produtos.id_produto</td>
+                <td>@produtos.Titulo_produto</td>
+                <td>@produtos.sub_categoria2.nm_subcategoria2</td>
+                <td>@produtos.categoria.nm_categoria</td>
+                <td>@produtos.sub_categoria.nm_subcategoria</td>
+                <td>@produtos.desconto</td>
+                <td>@produtos.marca.nm_marca</td>
+                <td>@produtos.faixa_etaria.nm_faixa_etaria</td>
+                <td>@produtos.preco</td>
+                <td>@produtos.cod_de_barra</td>
+                <td>@produtos.cod_visualizacao_parc</td>
+                <td>@produtos.habilitado</td>
+                <td>@produtos.data_insercao</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<br />
+
+
+
+<br />
+<div> <h3><b>LISTA DE CATEGÓRIAS COM LINQ</b></h3></div>
+<br />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>id_categoria</th>
+            <th>categoria</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var categorias in ViewBag.categorias)
+        {
+            <tr>
+                <td>@categorias.id_categoria</td>
+                <td>@categorias.nm_categoria</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<br />
+
+<br />
+<div> <h3><b>LISTA DE CATEGÓRIAS FILTRADA</b></h3></div>
+<br />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>id_categoria</th>
+            <th>categoria</th>
+
+        </tr>
+    </thead>
+    <tbody>@* ViewBag.CatF *@
+        @foreach (var categoriasF in ViewBag.CatF)
+        {
+            <tr>
+                <td>@categoriasF.categorias.id_categoria</td>
+                <td>@categoriasF.categorias.nm_categoria</td>
+                <td>@categoriasF.total</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<br />
+
+<br />
+<div> <h3><b>LISTA DE PRODUTOS COM VIEW SQL(viewTeste)</b></h3></div>
+<br />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>id_produtos</th>
+            <th>produtos</th>
+            <th>Largura do texto</th>
+        </tr>
+    </thead>
+    <tbody>
+        @* ViewBag.listeView *@
+    @foreach (var viewTeste in ViewBag.listeView)
+    {
+        <tr>
+            <td>@viewTeste.id_produto</td>
+            <td>@viewTeste.Titulo_produto</td>
+            <td>@viewTeste.Titulo_produto.Length</td>
+        </tr>
+    }
+</tbody>
+</table>
+<br />
+<br />
+
+<br />
+<div> <h3><b>LISTA DE PRODUTOS COM VIEW SQL(LISTA_PRODUTOS2)</b></h3></div>
+<br />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>id_produto</th>
+            <th>Titulo_produto</th>
+            <th>pesq_titulo_filtro_desconto</th>
+            <th>ordem_titulo_filtro_desconto</th>
+            <th>titulo_filtro_desconto</th>
+            <th>id_categoria</th>
+            <th>nm_categoria</th>
+            <th>id_subcategoria</th>
+            <th>nm_subcategoria</th>
+            <th>id_subcategoria2 </th>
+            <th>nm_subcategoria2 </th>
+            <th>desconto </th>
+            <th>nm_marca</th>
+            <th>nm_faixa_etaria </th>
+            <th>preco</th>
+            <th>precoTotal</th>
+            <th>cod_de_barra</th>
+            <th>mini_imagem</th>
+            <th>cod_visualizacao_parc</th>
+            <th>habilitado</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @* ViewBag.listaProdutos *@
+        @foreach (var listaProdutos in ViewBag.listaProdutos)
+        {
+            <tr>
+                <td>@listaProdutos.id_produto</td>
+                <td>@listaProdutos.Titulo_produto</td>
+                <td>@listaProdutos.pesq_filtro_desconto</td>
+                <td>@listaProdutos.ordem_filtro_desconto</td>
+                <td>@listaProdutos.nm_filtro_desconto</td>
+                <td>@listaProdutos.id_categoria</td>
+                <td>@listaProdutos.nm_categoria</td>
+                <td>@listaProdutos.id_subcategoria</td>
+                <td>@listaProdutos.nm_subcategoria</td>
+                <td>@listaProdutos.id_subcategoria2 </td>
+                <td>@listaProdutos.nm_subcategoria2 </td>
+                <td>@listaProdutos.desconto </td>
+                <td>@listaProdutos.nm_marca</td>
+                <td>@listaProdutos.nm_faixa_etaria </td>
+                <td>@listaProdutos.preco</td>
+                <td>@listaProdutos.precoTotal</td>
+                <td>@listaProdutos.cod_de_barra</td>
+                <td>@listaProdutos.mini_imagem</td>
+                <td>@listaProdutos.cod_visualizacao_parc</td>
+                <td>@listaProdutos.habilitado</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<br />
+
+<br />
+<div> <h3><b>LISTA DE PRODUTOS COM VIEW SQL(LISTA_PRODUTOS2) E FILTRO POR DESCONTO</b></h3></div>
+<br />
+
+<table class="table table-hover" style="width:500px;">
+    <thead>
+        <tr>
+            <th>pesq_filtro_desconto</th>
+            <th>nm_filtro_desconto</th>
+            <th>total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @* ViewBag.filtroDesconto *@
+        @foreach (var filtroDesconto in ViewBag.filtroDesconto)
+        {
+            <tr>
+                <td>@filtroDesconto.pesq_filtro_desconto</td>
+                <td>@filtroDesconto.nm_filtro_desconto</td>
+                <td>@filtroDesconto.total</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<br />
+
+
+<br />
+<div> <h3><b>LISTA DE PRODUTOS COM VIEW SQL(LISTA_PRODUTOS2) E FILTRO POR PREÇO PRODUTO</b></h3></div>
+<br />
+
+<table class="table table-hover" style="width:500px;">
+    <thead>
+        <tr>
+            <th>pesq_filtro_desconto</th>
+            <th>nm_filtro_desconto</th>
+            <th>total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @* ViewBag.filtroPrecoProduto *@
+        @foreach (var filtroPrecoProduto in ViewBag.filtroPrecoProduto)
+        {
+            <tr>
+                <td>@filtroPrecoProduto.pesq_filtro_precoProduto</td>
+                <td>@filtroPrecoProduto.nm_filtro_precoProduto</td>
+                <td>@filtroPrecoProduto.total</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<br />
+
+
+
+<br />
+<div> <h3><b>LISTA DE PRODUTOS COM VIEW SQL(LISTA_PRODUTOS2) E FILTRO POR CATEGÓRIAS</b></h3></div>
+<br />
+
+<table class="table table-hover" style="width:500px;">
+    <thead>
+        <tr>
+            <th>pesq_filtro_desconto</th>
+            <th>nm_filtro_desconto</th>
+            <th>total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @*  ViewBag.filtroCategoria *@
+        @foreach (var filtroCategoria in ViewBag.filtroCategoria)
+        {
+            <tr>
+                <td>@filtroCategoria.categorias.id_categoria</td>
+                <td>@filtroCategoria.categorias.nm_categoria</td>
+                <td>@filtroCategoria.total</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<br />
+
+
