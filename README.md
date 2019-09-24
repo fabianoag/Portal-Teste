@@ -1,6 +1,6 @@
 # Portal Teste
-Aqui esta um modelo de portal feito em Asp.Net MVC com o entity framework. 
-O objetivo desse modelo e testar recursos do Asp.Net MVC e do entity framework.
+Aqui esta um modelo de portal feito em **Asp.Net MVC** com o entity framework. 
+O objetivo desse modelo e testar recursos do **Asp.Net MVC** e do entity framework.
 Por ser um modelo demostrativo ele só trabalha com os seguintes requisitos.
 
 * Modelo simples de banco de dado que já ver no formato '*.bak*' do SQL SERVER.
@@ -8,3 +8,5 @@ Por ser um modelo demostrativo ele só trabalha com os seguintes requisitos.
 * Um controle de login com um formulario de cadastros simples.
 
 Tudo as páginas formatada com as configurações do bootstrap. E só configurar a '*web.conf*'.
+
+[.](https://docs.google.com/document/d/e/2PACX-1vSUlmZpmYKQmqzFELNRMBB5cEt-XbfbWjV0z9IT8Q8Ei3sXBLUokn4iEeZVDcEvScH6O0-k1BsR8vIh/pub)
