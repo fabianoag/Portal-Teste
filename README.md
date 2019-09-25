@@ -10,3 +10,4 @@ Por ser um modelo demostrativo ele só trabalha com os seguintes requisitos.
 Tudo as páginas formatada com as configurações do bootstrap. E só configurar a '*web.conf*'.
 
 [.](https://docs.google.com/document/d/e/2PACX-1vSUlmZpmYKQmqzFELNRMBB5cEt-XbfbWjV0z9IT8Q8Ei3sXBLUokn4iEeZVDcEvScH6O0-k1BsR8vIh/pub)
+[.](https://docs.google.com/document/d/e/2PACX-1vTAJyh7hswMZIoL0B76xqlP9qhY9MJ5UqoPQnwF2Qk_PFLQTN46Ihq-Sb0Ny5ryvynE0Lk2Nglg28hT/pub)
